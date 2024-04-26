@@ -9,8 +9,9 @@ def insert_topic(request):
     TO=Topic.objects.get_or_create(topic_name=tn)[0]
     TO.save()
     return HttpResponse('topic created successfully')
-
+'''
 def insert_webpage(request):
+
     tn=input('enter a tn')
     n=input('enter a name')
     u=input('enter url')
@@ -20,7 +21,31 @@ def insert_webpage(request):
 
     WO=Webpage.objects.get_or_create(topic_name=TO,name=n,url=u)[0]
     WO.save()
-    return HttpResponse('web page created successfully')
+    return HttpResponse('web page created successfully')'''
+
+def insert_webpage(request):
+
+    tn=input('enter a tn')
+    n=input('enter a name')
+    u=input('enter url')
+
+    #TO=Topic.objects.get(topic_name=tn)
+    LTO=Topic.objects.filter(topic_name=tn)
+    if LTO:
+        TO=LTO[0]
+        WO=Webpage.objects.get_or_create(topic_name=TO,name=n,url=u)[0]
+        WO.save()
+        return HttpResponse('webpage is created')
+    else:
+        return HttpResponse('given topic is not there')
+
+    
+
+
+
+
+
+
 def insert_access(request):
 
     tn=input('enter topic name')
@@ -37,3 +62,7 @@ def insert_access(request):
     AO=Access_record.objects.get_or_create(name=WO,date=d,author=a)[0]
     AO.save()
     return HttpResponse('access record created successfully')
+
+
+
+
